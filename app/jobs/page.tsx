@@ -76,34 +76,38 @@ export default function JobsPage() {
         {jobs.map(j => (
           <div
             key={j.id}
-            className="bg-gray-900 border border-gray-800 rounded-xl p-4 flex items-center gap-4"
+            className="bg-gray-900 border border-gray-800 rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4"
           >
-            <div className="flex-1">
-              <Link href={`/jobs/${j.id}`} className="font-semibold hover:text-indigo-400">
+            <div className="flex-1 min-w-0">
+              <Link href={`/jobs/${j.id}`} className="font-semibold hover:text-indigo-400 text-base break-words">
                 {j.name}
               </Link>
-              <div className="text-xs text-gray-500 font-mono mt-1">{j.script}</div>
+              <div className="text-xs text-gray-500 font-mono mt-1 truncate" title={j.script}>{j.script}</div>
               {j.schedule && <div className="text-xs text-gray-400 mt-1">⏰ {j.schedule}</div>}
             </div>
-            <span
-              className={`text-xs px-2 py-1 rounded-full ${
-                j.enabled ? 'bg-green-900 text-green-300' : 'bg-gray-800 text-gray-500'
-              }`}
-            >
-              {j.enabled ? 'Aktif' : 'Nonaktif'}
-            </span>
-            <button
-              onClick={() => handleRun(j.id)}
-              className="text-xs bg-blue-700 hover:bg-blue-600 px-3 py-1 rounded-lg"
-            >
-              ▶ Run
-            </button>
-            <button
-              onClick={() => handleDelete(j.id)}
-              className="text-xs bg-red-900 hover:bg-red-800 px-3 py-1 rounded-lg"
-            >
-              Hapus
-            </button>
+            <div className="flex items-center justify-between sm:justify-end gap-2 w-full sm:w-auto border-t sm:border-t-0 pt-2 sm:pt-0 border-gray-800">
+              <span
+                className={`text-xs px-2 py-0.5 rounded-full font-medium ${
+                  j.enabled ? 'bg-green-900 text-green-300' : 'bg-gray-800 text-gray-500'
+                }`}
+              >
+                {j.enabled ? 'Aktif' : 'Nonaktif'}
+              </span>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => handleRun(j.id)}
+                  className="text-xs bg-blue-700 hover:bg-blue-600 px-3 py-1.5 rounded-lg font-medium transition-colors"
+                >
+                  ▶ Run
+                </button>
+                <button
+                  onClick={() => handleDelete(j.id)}
+                  className="text-xs bg-red-900 hover:bg-red-800 px-3 py-1.5 rounded-lg font-medium transition-colors"
+                >
+                  Hapus
+                </button>
+              </div>
+            </div>
           </div>
         ))}
       </div>

@@ -18,7 +18,7 @@ export default function DashboardPage() {
   return (
     <div>
       <h1 className="text-2xl font-bold mb-6">Dashboard</h1>
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 md:gap-4 mb-8">
         {stats &&
           [
             { label: 'Total Jobs', val: stats.total_jobs },
@@ -27,9 +27,9 @@ export default function DashboardPage() {
             { label: 'Sukses', val: stats.success_today },
             { label: 'Gagal', val: stats.failed_today },
           ].map(s => (
-            <div key={s.label} className="bg-gray-900 rounded-xl p-4 border border-gray-800">
-              <div className="text-3xl font-bold text-white">{s.val}</div>
-              <div className="text-sm text-gray-400 mt-1">{s.label}</div>
+            <div key={s.label} className="bg-gray-900 rounded-xl p-3 md:p-4 border border-gray-800">
+              <div className="text-2xl md:text-3xl font-bold text-white">{s.val}</div>
+              <div className="text-xs md:text-sm text-gray-400 mt-1">{s.label}</div>
             </div>
           ))}
       </div>
@@ -39,15 +39,17 @@ export default function DashboardPage() {
         {runs.map(r => (
           <div
             key={r.id}
-            className="bg-gray-900 rounded-lg px-4 py-3 flex items-center justify-between border border-gray-800"
+            className="bg-gray-900 rounded-xl px-4 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4 border border-gray-800"
           >
-            <div>
-              <span className="font-medium">{r.job?.name ?? `Job #${r.job_id}`}</span>
-              <span className="ml-3 text-xs text-gray-500">
+            <div className="flex items-baseline justify-between sm:justify-start gap-3">
+              <span className="font-medium text-sm md:text-base">{r.job?.name ?? `Job #${r.job_id}`}</span>
+              <span className="text-xxs sm:text-xs text-gray-500">
                 {new Date(r.created_at).toLocaleString('id-ID')}
               </span>
             </div>
-            <RunStatusBadge status={r.status} />
+            <div className="flex sm:block justify-end">
+              <RunStatusBadge status={r.status} />
+            </div>
           </div>
         ))}
       </div>
